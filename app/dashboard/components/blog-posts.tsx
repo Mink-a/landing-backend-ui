@@ -3,7 +3,8 @@ import { useFetchAllBlogs } from "@/hooks/use-blogs";
 
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import MyModal from "./edit-modal";
+import EditModal from "./edit-modal";
+import { DeleteAlert } from "./delete-alert";
 
 function BlogPosts() {
   const { data, isLoading } = useFetchAllBlogs();
@@ -12,7 +13,8 @@ function BlogPosts() {
   }
   return (
     <div className="py-10">
-      <MyModal />
+      <EditModal />
+      <DeleteAlert />
       <DataTable columns={columns} data={data} />
     </div>
   );

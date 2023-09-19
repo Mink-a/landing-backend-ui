@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useState } from "react";
+import { AddForm } from "./add-form";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -61,6 +62,7 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-4">
+        <AddForm />
         <Input
           placeholder="Filter titles..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}

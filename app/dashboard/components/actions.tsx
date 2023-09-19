@@ -13,8 +13,8 @@ import { Button } from "@/components/ui/button";
 import { useModalStore } from "@/store/modal-store";
 
 function Actions({ record }: { record: any }) {
-  const open = useModalStore((state) => state.open);
   const setOpen = useModalStore((state) => state.setOpen);
+  const setAlertOpen = useModalStore((state) => state.setAlertOpen);
   const setPostId = useModalStore((state) => state.setPostId);
   return (
     <DropdownMenu>
@@ -40,7 +40,14 @@ function Actions({ record }: { record: any }) {
         >
           Edit
         </DropdownMenuItem>
-        <DropdownMenuItem>Delete</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            setAlertOpen(true);
+            setPostId(record.id);
+          }}
+        >
+          Delete
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

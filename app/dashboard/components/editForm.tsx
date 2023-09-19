@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -47,7 +46,7 @@ export function EditForm({ data }: { data: any }) {
   });
 
   function onSubmit(fdata: z.infer<typeof formSchema>) {
-    let formData = { ...data, title: fdata.title };
+    let formData = { ...data, title: fdata.title, body: fdata.body };
     mutation.mutate(formData);
   }
 

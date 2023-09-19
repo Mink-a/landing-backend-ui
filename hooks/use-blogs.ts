@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 async function getPosts() {
   const res = await axios.get("https://6p5gy6-4000.csb.app/posts");
@@ -16,6 +16,16 @@ export async function updatePost(data: any) {
     `https://6p5gy6-4000.csb.app/posts/${data.id}`,
     data
   );
+  return res;
+}
+
+export async function addPost(data: any) {
+  const res = await axios.post(`https://6p5gy6-4000.csb.app/posts/`, data);
+  return res;
+}
+
+export async function deletePost(id: string) {
+  const res = await axios.delete(`https://6p5gy6-4000.csb.app/posts/${id}`);
   return res;
 }
 
