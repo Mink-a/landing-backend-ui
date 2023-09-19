@@ -27,6 +27,7 @@ const formSchema: any = z.object({
   body: z.string().min(2, {
     message: "Body must be at least 2 characters.",
   }),
+  authorId: z.string().min(2)
 });
 
 export function EditForm({ data }: { data: any }) {
@@ -42,6 +43,7 @@ export function EditForm({ data }: { data: any }) {
     defaultValues: {
       title: data.title,
       body: data.body,
+      authorId: data.authorId
     },
   });
 
@@ -53,6 +55,19 @@ export function EditForm({ data }: { data: any }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+        <FormField
+          control={form.control}
+          name="authorId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Author</FormLabel>
+              <FormControl>
+                <Input placeholder="author" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="title"

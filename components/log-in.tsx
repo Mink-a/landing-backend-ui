@@ -17,7 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 // import { toast } from "@/components/ui/use-toast"
 
-import usePersistStore from "@/hooks/usePersistStore";
 import { useUserStore } from "@/store/store";
 import { useRouter } from "next/navigation";
 
@@ -72,7 +71,7 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Login</Button>
       </form>
     </Form>
   );

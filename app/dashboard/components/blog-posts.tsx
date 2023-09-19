@@ -12,7 +12,7 @@ function BlogPosts() {
     return <p>Loading...</p>;
   }
   return (
-    <div className="py-10">
+    <div className="">
       <EditModal />
       <DeleteAlert />
       <DataTable columns={columns} data={data} />

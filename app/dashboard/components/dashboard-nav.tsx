@@ -15,7 +15,7 @@ function DashboardNav() {
     router.push("/");
   };
   return (
-    <div>
+    <div className="py-4">
       {userName}
       <Button onClick={handleLogOut}>Logout</Button>
     </div>

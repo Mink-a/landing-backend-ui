@@ -12,14 +12,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { deletePost } from "@/hooks/use-blogs";
 import { useModalStore } from "@/store/modal-store";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function DeleteAlert() {
+  const queryClient = useQueryClient();
   const postId = useModalStore((state) => state.postId);
   const alertOpen = useModalStore((state) => state.alertOpen);
   const setAlertOpen = useModalStore((state) => state.setAlertOpen);
   const mutation = useMutation({
     mutationFn: deletePost,
+    onSuccess: () => queryClient.invalidateQueries(["blogs"]),
   });
   return (
     <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>

@@ -3,6 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { nanoid } from "nanoid";
+
 import {
   Form,
   FormControl,
@@ -24,6 +26,7 @@ const formSchema: any = z.object({
   body: z.string().min(2, {
     message: "Body must be at least 2 characters.",
   }),
+  authorId: z.string(),
 });
 import { Button } from "@/components/ui/button";
 import {
@@ -38,10 +41,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { useUserStore } from "@/store/store";
 
 export function AddForm() {
+  const userName = useUserStore((state) => state.userName);
   const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const mutation = useMutation({
     mutationFn: addPost,
@@ -53,20 +58,22 @@ export function AddForm() {
     defaultValues: {
       title: "",
       body: "",
+      authorId: userName,
     },
   });
 
   function onSubmit(fdata: z.infer<typeof formSchema>) {
     let formData = {
       ...fdata,
-      id: "23",
-      authorId: "2",
-      date: "123344",
+      id: nanoid(),
+      authorId: userName,
+      imageUrl: "/bank.png",
+      date: new Date().toISOString(),
       category: "1",
-      tags: ["Hello"],
+      tags: ["Hello", "tech"],
     };
     mutation.mutate(formData);
-    setOpen(false)
+    setOpen(false);
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -79,6 +86,19 @@ export function AddForm() {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+            <FormField
+              control={form.control}
+              name="authorId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Author</FormLabel>
+                  <FormControl>
+                    <Input placeholder="author" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="title"
@@ -105,9 +125,7 @@ export function AddForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit">
-              Submit
-            </Button>
+            <Button type="submit">Submit</Button>
           </form>
         </Form>
       </DialogContent>
