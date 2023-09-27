@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { nanoid } from "nanoid";
 
 import {
   Form,
@@ -15,9 +14,18 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 
-import { addPost, updatePost } from "@/hooks/use-blogs";
-import { useModalStore } from "@/store/modal-store";
+import { addPost } from "@/hooks/use-blogs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent, DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { useUserStore } from "@/store/store";
 
 const formSchema: any = z.object({
   title: z.string().min(2, {
@@ -26,22 +34,8 @@ const formSchema: any = z.object({
   body: z.string().min(2, {
     message: "Body must be at least 2 characters.",
   }),
-  authorId: z.string(),
+  author: z.string().min(2),
 });
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import { useUserStore } from "@/store/store";
 
 export function AddForm() {
   const userName = useUserStore((state) => state.userName);
@@ -58,20 +52,21 @@ export function AddForm() {
     defaultValues: {
       title: "",
       body: "",
-      authorId: userName,
+      author: userName,
     },
   });
 
   function onSubmit(fdata: z.infer<typeof formSchema>) {
+    console.log("submit");
     let formData = {
       ...fdata,
-      id: nanoid(),
-      authorId: userName,
+      author: userName,
       imageUrl: "/bank.png",
       date: new Date().toISOString(),
       category: "1",
       tags: ["Hello", "tech"],
     };
+    console.log(formData);
     mutation.mutate(formData);
     setOpen(false);
   }
@@ -88,7 +83,7 @@ export function AddForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
             <FormField
               control={form.control}
-              name="authorId"
+              name="author"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Author</FormLabel>

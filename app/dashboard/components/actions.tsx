@@ -27,7 +27,7 @@ function Actions({ record }: { record: any }) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem
-          onClick={() => navigator.clipboard.writeText(record.id)}
+          onClick={() => navigator.clipboard.writeText(record._id)}
         >
           Copy record ID
         </DropdownMenuItem>
@@ -35,7 +35,7 @@ function Actions({ record }: { record: any }) {
         <DropdownMenuItem
           onClick={() => {
             setOpen(true);
-            setPostId(record.id);
+            setPostId(record._id);
           }}
         >
           Edit
@@ -43,7 +43,7 @@ function Actions({ record }: { record: any }) {
         <DropdownMenuItem
           onClick={() => {
             setAlertOpen(true);
-            setPostId(record.id);
+            setPostId(record._id);
           }}
         >
           Delete

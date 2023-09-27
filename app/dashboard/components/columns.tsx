@@ -15,16 +15,16 @@ import {
 import Actions from "./actions";
 
 export type BlogPost = {
-  id: string;
+  _id: string;
   title: string;
-  authorId: string;
+  author: string;
   body: string;
 };
 
 export const columns: ColumnDef<BlogPost>[] = [
   {
-    accessorKey: "authorId",
-    header: "AuthorId",
+    accessorKey: "author",
+    header: "Author",
   },
   {
     accessorKey: "title",

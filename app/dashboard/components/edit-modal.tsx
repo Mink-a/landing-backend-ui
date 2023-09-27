@@ -7,8 +7,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { useModalStore } from "@/store/modal-store";
 import { useFetchBlogById } from "@/hooks/use-blogs";
+import { useModalStore } from "@/store/modal-store";
 import { EditForm } from "./editForm";
 
 function EditModal() {
